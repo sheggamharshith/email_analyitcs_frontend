@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import {
   requestLogin,
@@ -13,6 +14,9 @@ import {
 var UserStateContext = React.createContext();
 var UserDispatchContext = React.createContext();
 
+UserStateContext.displayName = "User";
+UserDispatchContext.displayName = "userDispatch";
+
 // will use the action and will
 //directly replace the present state with action state
 function userReducer(state, action) {
@@ -20,6 +24,8 @@ function userReducer(state, action) {
     case LOGIN_SUCCESS:
       return { ...action };
     case LOGIN_FAILURE:
+      //backend server parsing the data with left over token
+      axios.axios.defaults.headers.common = null;
       return { ...action };
     case LOGOUT_REQUEST:
       return { ...action };
