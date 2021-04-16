@@ -1,17 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./components/App";
+import reportWebVitals from "./reportWebVitals";
+import { UserProvider } from "./context/userContext";
+import { debugContextDevtool } from "react-context-devtool";
+import axios from "axios";
+
+const container = document.getElementById("root");
+const token = localStorage.getItem("idToken");
+
+if (token) {
+  axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  container
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Attach root container
+debugContextDevtool(container);
 reportWebVitals();
