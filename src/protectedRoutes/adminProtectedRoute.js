@@ -1,14 +1,14 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-
-const User = !!localStorage.getItem("id_token");
+import { useUserState } from "../context/userContext";
 
 const AdminProtectedRoute = ({ component: Component, ...rest }) => {
+  const User = useUserState();
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (User) {
+        if (User.isAuthenticated) {
           return <Component {...rest} {...props} />;
         } else {
           return (

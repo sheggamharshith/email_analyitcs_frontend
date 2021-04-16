@@ -3,9 +3,10 @@ import app from "../../components/fireBase";
 import "./index.scss";
 
 import "shards-ui/dist/css/shards.min.css";
-import GoogleButton from "../../components/googleButtom";
-import { useUserDispatch } from "../../context/userContext";
+import { useUserDispatch, useUserState } from "../../context/userContext";
 import { loginSuccess, requestLogin } from "../../actions/userActions";
+import LoginCard from "../../components/LoginCard";
+import { Redirect } from "react-router-dom";
 
 function googleSignInPopup(dispatch) {
   dispatch(requestLogin());
@@ -18,6 +19,7 @@ function googleSignInPopup(dispatch) {
     .then((result) => {
       dispatch(loginSuccess());
       console.log(result);
+      localStorage.setItem("token", result.credential.idToken);
     })
     .catch((error) => {
       // Handle Errors here.
@@ -30,14 +32,15 @@ function googleSignInPopup(dispatch) {
 
 const LoginPage = () => {
   const dispatch = useUserDispatch();
+  const user = useUserState();
+
+  if (user.isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
   return (
     <div className="login-main">
-      <div
-        onClick={() => {
-          googleSignInPopup(dispatch);
-        }}
-      >
-        <GoogleButton />
+      <div>
+        <LoginCard loginfunction={googleSignInPopup} dispatch={dispatch} />
       </div>
     </div>
   );

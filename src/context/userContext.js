@@ -22,10 +22,12 @@ UserDispatchContext.displayName = "userDispatch";
 function userReducer(state, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
+      const { token } = action;
+      axios.defaults.headers.common = "Bear " + token;
       return { ...action };
     case LOGIN_FAILURE:
       //backend server parsing the data with left over token
-      axios.axios.defaults.headers.common = null;
+      axios.defaults.headers.common = null;
       return { ...action };
     case LOGOUT_REQUEST:
       return { ...action };
