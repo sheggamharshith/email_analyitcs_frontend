@@ -1,12 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.scss";
+import "./index.css";
 import App from "./components/App";
 import { UserProvider } from "./context/userContext";
-import { debugContextDevtool } from "react-context-devtool";
 import axios from "axios";
-
-// material ui
 
 // context api
 const container = document.getElementById("root");
@@ -23,6 +20,3 @@ ReactDOM.render(
   </UserProvider>,
   container
 );
-
-// Attach root container
-debugContextDevtool(container);

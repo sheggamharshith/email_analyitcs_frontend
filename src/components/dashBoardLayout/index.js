@@ -1,16 +1,19 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, useRouteMatch } from "react-router-dom";
 import AnalyticsPage from "../../pages/analyticsPage";
 import DashBoardPage from "../../pages/Dashboard";
 import InboxPage from "../../pages/inboxPage";
+import NavBarNav from "../NavBar/NavBarNav";
 
 const DashBoardLayout = () => {
+  const url = useRouteMatch();
   return (
-    <>
-      <Route path="dashboard/main" component={DashBoardPage} />
-      <Route path="dashboard/first" component={InboxPage} />
-      <Route path="dashboard/second" component={AnalyticsPage} />
-    </>
+    <div className="main-dasboard">
+      <NavBarNav />
+      <Route path={`${url.path}/main`} component={DashBoardPage} />
+      <Route path={`${url.path}/inbox`} component={InboxPage} />
+      <Route path={`${url.path}/analytics`} component={AnalyticsPage} />
+    </div>
   );
 };
 

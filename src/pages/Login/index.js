@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 import app from "../../components/fireBase";
 import "./index.scss";
 
-import "shards-ui/dist/css/shards.min.css";
 import { useUserDispatch, useUserState } from "../../context/userContext";
 import { loginSuccess, requestLogin } from "../../actions/userActions";
 import LoginCard from "../../components/LoginCard";
@@ -35,13 +34,11 @@ const LoginPage = () => {
   const user = useUserState();
 
   if (user.isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/dashboard/main" />;
   }
   return (
-    <div className="login-main">
-      <div>
-        <LoginCard loginfunction={googleSignInPopup} dispatch={dispatch} />
-      </div>
+    <div className="flex justify-center h-screen border border-blue-600 items-center login-main  ">
+      <LoginCard loginfunction={googleSignInPopup} dispatch={dispatch} />
     </div>
   );
 };
