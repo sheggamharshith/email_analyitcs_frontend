@@ -8,7 +8,7 @@ import NavBarNav from "../NavBar/NavBarNav";
 const DashBoardLayout = () => {
   const url = useRouteMatch();
   return (
-    <div className="main-dasboard">
+    <div className="flex flex-col h-screen border border-double overflow-y-auto ">
       <NavBarNav />
       <Route path={`${url.path}/main`} component={DashBoardPage} />
       <Route path={`${url.path}/inbox`} component={InboxPage} />

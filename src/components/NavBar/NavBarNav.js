@@ -16,7 +16,7 @@ export default function Example() {
     <Disclosure as="nav" className="bg-white">
       {({ open }) => (
         <>
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 border shadow-md">
+          <div className=" mx-auto px-2 sm:px-6 lg:px-8 border shadow-md">
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -96,38 +96,38 @@ export default function Example() {
                         >
                           <Menu.Item>
                             {({ active }) => (
-                              <a
+                              <p
                                 className={classNames(
                                   active ? "bg-primaryRed" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Your Profile
-                              </a>
+                              </p>
                             )}
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
+                              <p
                                 className={classNames(
                                   active ? "bg-primaryRed" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Settings
-                              </a>
+                              </p>
                             )}
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
+                              <p
                                 className={classNames(
                                   active ? "bg-primaryRed" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Sign out
-                              </a>
+                              </p>
                             )}
                           </Menu.Item>
                         </Menu.Items>

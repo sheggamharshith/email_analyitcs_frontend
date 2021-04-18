@@ -1,5 +1,4 @@
 import { ReactComponent as GoogleLogo } from "../../assets/icons/google.svg";
-import { ReactComponent as LoginSvg } from "../../assets/images/login.jpg";
 const GoogleButton = () => {
   return (
     <div className=" felx text-xl  justify-self-center p-2 space-y-4">

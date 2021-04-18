@@ -31,6 +31,7 @@ module.exports = {
       primaryBlack: "#222831",
       primaryWhite: "#e8e8e8",
       white: "#ffff",
+      primarySilver: "#ffff",
     }),
     textColor: {
       primaryRed: "#f05454",

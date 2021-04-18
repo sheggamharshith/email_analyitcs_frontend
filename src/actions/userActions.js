@@ -14,23 +14,24 @@ export function requestLogin(creds) {
   };
 }
 
-export function loginSuccess(token) {
+export function loginSuccess(accessToken, user) {
   return {
     type: LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    id_token: token,
+    accessToken: accessToken,
+    user: user,
   };
 }
 
-function loginError(message) {
-  return {
-    type: LOGIN_FAILURE,
-    isFetching: false,
-    isAuthenticated: false,
-    message,
-  };
-}
+// function loginError(message) {
+//   return {
+//     type: LOGIN_FAILURE,
+//     isFetching: false,
+//     isAuthenticated: false,
+//     message,
+//   };
+// }
 
 export function requestLogout() {
   return {

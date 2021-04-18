@@ -1,9 +1,10 @@
 import axios from "axios";
 import React from "react";
+import firebase from "firebase/app";
+import app from "../components/fireBase";
 import {
   requestLogin,
   loginSuccess,
-  requestLogout,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGOUT_REQUEST,
@@ -22,8 +23,6 @@ UserDispatchContext.displayName = "userDispatch";
 function userReducer(state, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      const { token } = action;
-      axios.defaults.headers.common = "Bear " + token;
       return { ...action };
     case LOGIN_FAILURE:
       //backend server parsing the data with left over token
@@ -44,6 +43,7 @@ function userReducer(state, action) {
 function UserProvider({ children }) {
   var [state, dispatch] = React.useReducer(userReducer, {
     isAuthenticated: !!localStorage.getItem("token"),
+    user: null,
   });
 
   return (
@@ -71,12 +71,53 @@ function useUserDispatch() {
   return context;
 }
 
-export { UserProvider, useUserState, useUserDispatch, loginUser, signOut };
+export {
+  UserProvider,
+  useUserState,
+  useUserDispatch,
+  loginUserUsingFireBase,
+  signOut,
+};
 
 // ###########################################################
 
-function loginUser(dispatch, login, password, history, setIsLoading, setError) {
-  console.log("login succesfull");
+// axios function
+function setAxiosHeader(accessToken) {
+  axios.defaults.headers.common["Authorization"] = "Bearer " + accessToken;
+}
+function removeAxiosToken() {
+  axios.defaults.headers.common["Authorization"] = null;
+}
+
+function loginUserUsingFireBase(dispatch, setIsLoading) {
+  dispatch(requestLogin());
+  setIsLoading(true);
+
+  var provider = new firebase.auth.GoogleAuthProvider();
+  //remove this harcode should add the scope dynamically
+  provider.addScope("https://mail.google.com/");
+
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then((result) => {
+      const accessToken = result.credential.accessToken;
+      const user = {
+        name: result.user.displayName,
+        email: result.user.email,
+        photoUrl: result.user.photoURL,
+        uid: result.user.uid,
+      };
+      localStorage.setItem("token", result.credential.idToken);
+      localStorage.setItem("accessToken", result.credential.accessToken);
+      localStorage.setItem("firebaseToken", result.user.uid);
+      dispatch(loginSuccess(accessToken, user));
+    })
+    .catch((error) => {
+      var errorMessage = error.message;
+      console.log(errorMessage);
+      setIsLoading(false);
+    });
 }
 
 function signOut(dispatch, history) {
