@@ -1,17 +1,39 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
-
-const navigation = [
-  { name: "Analytics", href: "/dashboard/main", current: true },
-];
+import { Link, useHistory } from "react-router-dom";
+import {
+  signOut,
+  useUserDispatch,
+  useUserState,
+} from "../../context/userContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Example() {
+  const dispatch = useUserDispatch();
+  const history = useHistory();
+  const navigation = [
+    {
+      name: "Analytics",
+      href: "/dashboard/analytics",
+      current:
+        history.location.pathname === "/dashboard/analytics" ? true : false,
+    },
+    {
+      name: "Inbox",
+      href: "/dashboard/inbox",
+      current: history.location.pathname === "/dashboard/inbox" ? true : false,
+    },
+    {
+      name: "Main",
+      href: "/dashboard/main",
+      current: history.location.pathname === "/dashboard/main" ? true : false,
+    },
+  ];
+  const user = useUserState();
   return (
     <Disclosure as="nav" className="bg-white">
       {({ open }) => (
@@ -50,11 +72,10 @@ export default function Example() {
                         to={item.href}
                         className={classNames(
                           item.current
-                            ? "border-b border-b-2 border-red-900 text-white font-bold"
+                            ? "border-b border-b-2 border-red-900 text-white font-bold "
                             : "text-gray-300 hover:bg-primaryRed hover:text-white",
                           "px-3 py-2  text-md font-medium"
                         )}
-                        aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
                       </Link>
@@ -75,7 +96,7 @@ export default function Example() {
                         <Menu.Button className=" flex bg-primaryRed text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <img
                             className="h-8 w-8 rounded-full"
-                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            src={user.user.photoUrl}
                             alt=""
                           />
                         </Menu.Button>
@@ -92,7 +113,7 @@ export default function Example() {
                       >
                         <Menu.Items
                           static
-                          className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                          className="origin-top-right absolute right-0 mt-2 w-48 z-50 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                         >
                           <Menu.Item>
                             {({ active }) => (
@@ -125,6 +146,9 @@ export default function Example() {
                                   active ? "bg-primaryRed" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
+                                onClick={() => {
+                                  signOut(dispatch);
+                                }}
                               >
                                 Sign out
                               </p>
@@ -142,19 +166,18 @@ export default function Example() {
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-primaryRed text-white"
+                      ? "bg-primaryRed text-white opacity-90"
                       : "text-gray-300 hover:bg-primaryRed hover:text-white",
                     "block px-3 py-2 rounded-md text-base font-medium"
                   )}
-                  aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </div>
           </Disclosure.Panel>

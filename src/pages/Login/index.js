@@ -9,7 +9,6 @@ import { Redirect } from "react-router-dom";
 const LoginPage = () => {
   const dispatch = useUserDispatch();
   const user = useUserState();
-  console.log(user);
 
   if (user.isAuthenticated) {
     return <Redirect to="/dashboard/main" />;
