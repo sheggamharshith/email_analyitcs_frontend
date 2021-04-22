@@ -8,6 +8,8 @@ In the project directory, you can run:
 
 ## project UI
 ![alt text](https://i.ibb.co/tzHGzCC/googlepng.png)
+![alt text](https://ibb.co/Rcwk7j3)
+
 
 ### `npm start`
 
