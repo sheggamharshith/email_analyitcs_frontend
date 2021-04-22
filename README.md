@@ -10,7 +10,7 @@ In the project directory, you can run:
 ![alt text](https://i.ibb.co/tzHGzCC/googlepng.png)
 
 #### dashboard
-![alt text](https://i.ibb.co/x6Tt3F1/Screenshot-from-2021-04-22-23-55-43.png)
+![alt text](https://www.linkpicture.com/q/Screenshot-from-2021-04-22-23-55-43.png)
 
 
 ### `npm start`
