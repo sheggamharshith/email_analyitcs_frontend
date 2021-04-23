@@ -7,11 +7,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ## project UI
-![alt text](https://i.ibb.co/tzHGzCC/googlepng.png)
-
-#### dashboard
-![alt text](https://www.linkpicture.com/q/Screenshot-from-2021-04-22-23-55-43.png)
-
+<div align="center" style={"display":"flex";"justify-content":"space-between";}>
+    <img src="https://i.ibb.co/tzHGzCC/googlepng.png" width="300"  style={"margin":"10px"} >
+ <img src="https://www.linkpicture.com/q/Screenshot-from-2021-04-22-23-55-43.png" width="650" >
+</div>
 
 ### `npm start`
 
